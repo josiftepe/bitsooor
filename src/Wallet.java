@@ -2,17 +2,22 @@ import java.util.*;
 public class Wallet {
     Map<Asset, Double> assetMap = new HashMap<>();
     Map<Asset, Double> assetPrice = new HashMap<>();
-    public Wallet() {
 
-        assetMap.put(new Asset("bitcoin", "btc"), 1.0);
-        assetPrice.put(new Asset("bitcoin", "btc"), 2.0);
-    }
+
+
     void transferAsset(Asset a, double quantity, Trader trader) {
+
         if(assetMap.containsKey(a)) {
             System.out.println("DA");
             if(assetMap.get(a) >= quantity) {
                 assetMap.put(a, assetMap.get(a) - quantity);
-                trader.wallet.assetMap.put(a, quantity);
+                double initial = 0.0;
+                if(trader.wallet.assetMap.containsKey(a)) {
+                    initial = trader.wallet.assetMap.get(a);
+                }
+                initial += quantity;
+                trader.wallet.assetMap.put(a, initial);
+
             }
         }
     }

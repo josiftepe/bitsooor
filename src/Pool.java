@@ -37,5 +37,9 @@ public class Pool  {
     public static void setCoinSupply(double coinSupply) {
         COIN_SUPPLY = coinSupply;
     }
-
+    public void startPriceSimulator(int interval) {
+        priceSimulator = new PriceSimulator(this);
+        Thread thread = new Thread(priceSimulator);
+        thread.start();
+    }
 }

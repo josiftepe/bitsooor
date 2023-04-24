@@ -8,6 +8,7 @@ public class PriceSimulator implements Runnable{
     List<Trader> traders;
     public PriceSimulator(Pool pool) {
         this.pool = pool;
+        random = new Random();
     }
     @Override
     public void run() {
@@ -16,11 +17,11 @@ public class PriceSimulator implements Runnable{
                 double oldPrice = pool.getCurrentPrice();
                 double newPrice = generateNewPrice(oldPrice);
                 pool.setCurrentPrice(newPrice);
-
-                for (Trader t : traders) {
-                    t.notifyPriceChanges(newPrice, pool);
-                }
-
+                System.out.println(pool.getCurrentPrice());
+//                for (Trader t : traders) {
+//                    t.notifyPriceChanges(newPrice, pool);
+//                }
+break;
             }
         }
         catch (Exception e) {
@@ -30,6 +31,6 @@ public class PriceSimulator implements Runnable{
     double generateNewPrice(double oldPrice) {
         double min = oldPrice * 0.9;
         double max = oldPrice * 1.2;
-        return min + (max - min) * (random.nextDouble() + 0.05);
+        return min + (max - min) * (random.nextDouble());
     }
 }
